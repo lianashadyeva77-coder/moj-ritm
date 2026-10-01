@@ -81,7 +81,7 @@ requestAnimationFrame(centerDates);
 attachSwipe();
 }
 function taskIcon(id){return (tasks.find(t=>t[0]===id)||tasks[0])[2]}
-function centerDates(){const cal=document.getElementById("calendar"),track=document.getElementById("track"),items=track.children;if(!items.length)return;const w=cal.clientWidth/7;track.style.transition="none";track.style.transform=`translate3d(${cal.clientWidth/2-w/2-(15*w),0,0)`}
+function centerDates(){const cal=document.getElementById("calendar"),track=document.getElementById("track"),items=track.children;if(!items.length)return;const w=cal.clientWidth/7;track.style.transition="none";track.style.transform=`translate3d(${cal.clientWidth/2-w/2-(15*w)}px,0,0)`}
 function addTask(id){let a=state.plans[state.date]||[];if(a.some(x=>x.id===id)){return}let t=tasks.find(x=>x[0]===id);a.push({id,name:t[1],done:false});state.plans[state.date]=a;save();render();setTimeout(()=>document.querySelector(".added")?.scrollIntoView({behavior:"smooth",block:"start"}),80)}
 function toggle(i){state.plans[state.date][i].done=!state.plans[state.date][i].done;save();render()}
 function shift(n){let d=dateFrom(state.date);d.setDate(d.getDate()+n);state.date=key(d);save();swipeSound();render()}

@@ -2,106 +2,105 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f6f2f4">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f7f5f4">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Мой ритм</title>
 <style>
-:root{--pink:#e7a4b8;--green:#2f6f61;--bg:#f7f5f4;--text:#262526;--muted:#8d898b;--card:#fff;--line:#eee8ea}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:18px 16px 96px}
-h1{font-size:25px;margin:5px 0 14px;text-transform:uppercase;letter-spacing:.04em}
-.top{display:flex;align-items:center;justify-content:space-between}
-.iconbtn{border:0;background:transparent;font-size:22px;padding:7px}
-.dates{display:flex;align-items:center;justify-content:space-between;gap:4px;margin:8px 0 18px;touch-action:pan-y}
-.date{width:45px;height:60px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .22s ease,background .28s ease,color .28s ease}
-.date .dow{font-size:11px;color:var(--muted)}.date .num{font-size:17px;font-weight:600}
-.date.active{background:var(--accent);color:white;transform:scale(1.04)}.date.active .dow{color:rgba(255,255,255,.8)}
-.progress{border-radius:26px;padding:22px;color:white;min-height:158px;margin-bottom:20px;position:relative;overflow:hidden;background-size:cover;background-position:center}
-.progress:before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.10)}
-.progress>*{position:relative}.progress .pct{font-size:38px;font-weight:700}.progress .label{font-size:15px;opacity:.92}
-.tasklib{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile,.daytask{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
-.tile:active,.daytask:active{transform:scale(.98)}.tile .ico{font-size:23px}.tile .name{font-size:14px;font-weight:600}
-h2{font-size:17px;margin:18px 0 10px}.daytask{margin:8px 0;justify-content:space-between}.left{display:flex;gap:10px;align-items:center}.check{width:23px;height:23px;border:2px solid #d8d2d5;border-radius:50%;display:grid;place-items:center;color:white;font-size:13px}.done .check{background:var(--accent);border-color:var(--accent)}.done .name{text-decoration:line-through;color:var(--muted)}
-.nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(488px,calc(100% - 24px));background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:25px;padding:8px;display:flex;justify-content:space-around;z-index:10}.nav button{border:0;background:transparent;padding:9px 17px;color:var(--muted);font-size:12px}.nav .sel{color:var(--text);font-weight:700}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.28);display:none;align-items:flex-end;z-index:20}.sheet{background:var(--bg);width:100%;max-height:84vh;border-radius:28px 28px 0 0;padding:18px;overflow:auto}.sheet h3{margin:5px 0 15px}.close{float:right;border:0;background:#eee;border-radius:50%;width:32px;height:32px}.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{background:var(--card);border:2px solid transparent;border-radius:18px;padding:12px;text-align:left}.opt.selected{border-color:var(--accent)}.bgthumb{height:70px;border-radius:13px;margin-bottom:8px;background-size:cover;background-position:center}
-.dark{--bg:#171719;--text:#f4f1f2;--card:#242426;--line:#353438}.dark .nav{background:rgba(35,35,38,.92)}
-@media(max-width:360px){.date{width:40px}.tasklib{grid-template-columns:1fr}}
+:root{--accent:#2f7668;--pink:#e49bb5;--green:#2f7668;--bg:#f7f5f4;--text:#292729;--muted:#8f8b8d;--card:#fff;--line:#e9e3e5}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;overflow-x:hidden}
+body{min-height:100vh}.app{max-width:540px;margin:auto;min-height:100vh;padding:18px 16px 108px}
+.top{display:flex;align-items:center;justify-content:space-between}.top h1{font-size:25px;line-height:1;margin:5px 0 18px;text-transform:uppercase;letter-spacing:.035em}.iconbtn{border:0;background:none;font-size:25px;color:var(--accent);padding:6px}
+.swipe{height:88px;overflow:hidden;margin:0 -2px 20px;touch-action:none;user-select:none;position:relative}.track{height:88px;display:flex;align-items:center;gap:2px;will-change:transform}.date{flex:0 0 calc((100% - 12px)/7);height:88px;border-radius:31px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;position:relative;transition:background .2s,color .2s,transform .2s}.date .dow{font-size:14px;color:var(--muted)}.date .num{font-size:27px;font-weight:650;line-height:1}.date.active{background:var(--accent);color:#fff;transform:scale(1.01)}.date.active .dow{color:rgba(255,255,255,.84)}.date.today:not(.active) .num{color:var(--accent)}.dragging .date{transition:none}
+.progress{height:162px;border-radius:30px;padding:23px 27px;color:#fff;margin-bottom:22px;position:relative;overflow:hidden;background:#bdb9b9 center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.07)}.progress:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.32),rgba(0,0,0,.08))}.progress>*{position:relative;z-index:1}.today-title{font-size:18px;font-weight:650;margin-bottom:9px}.pct{font-size:42px;font-weight:750;line-height:1}.sub{font-size:15px;margin-top:7px}
+h2{font-size:19px;margin:18px 0 10px}.added{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}.daytask{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:13px 14px;min-height:58px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.02)}.left{display:flex;align-items:center;gap:12px}.name{font-size:15px;font-weight:600}.check{width:24px;height:24px;border:2px solid #d9d3d6;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px}.done .check{background:var(--accent);border-color:var(--accent)}.done .name{text-decoration:line-through;color:var(--muted)}
+.tasklib{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{appearance:none;width:100%;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:13px 12px;min-height:78px;display:flex;align-items:center;gap:11px;text-align:left;cursor:pointer;transition:transform .16s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}.tile:active{transform:scale(.965)}.tile.selected{background:var(--selected-bg);border-color:var(--accent);box-shadow:0 5px 16px var(--selected-shadow)}.tile.selected .name{color:var(--accent)}.tile .name{font-size:15px;font-weight:650;line-height:1.2}.plus{margin-left:auto;color:var(--accent);font-size:18px;font-weight:700}
+.ico{width:40px;height:40px;display:grid;place-items:center;flex:0 0 40px;color:var(--accent)}.ico svg{width:34px;height:34px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.empty{color:var(--muted);font-size:14px;padding:4px 2px}.nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(508px,calc(100% - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:28px;padding:8px;display:flex;justify-content:space-around;z-index:10;box-shadow:0 7px 25px rgba(0,0,0,.08)}.nav button{border:0;background:none;padding:9px 17px;color:var(--muted);font-size:13px}.nav .sel{color:var(--text);font-weight:700}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.28);display:none;align-items:flex-end;z-index:20}.sheet{background:var(--bg);width:100%;max-height:91vh;border-radius:30px 30px 0 0;padding:18px;overflow:auto}.close{float:right;border:0;background:#eee;border-radius:50%;width:34px;height:34px;font-size:21px}.sheet h3{font-size:24px;margin:5px 0 17px;text-transform:capitalize}
+.month-head{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}.month-head div{text-align:center;color:var(--muted);font-size:12px}.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.mday{border:0;background:var(--card);border-radius:15px;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;color:var(--text)}.mday .count{font-size:9px;color:var(--muted);margin-top:3px}.mday.empty{background:transparent}.mday.current{background:var(--accent);color:#fff}.mday.today:not(.current){outline:2px solid var(--accent)}.mday.current .count{color:rgba(255,255,255,.8)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{background:var(--card);border:2px solid transparent;border-radius:18px;padding:12px;text-align:left}.opt.selected{border-color:var(--accent)}.bgthumb{height:82px;border-radius:13px;margin-bottom:8px;background-size:cover;background-position:center}
+.dark{--bg:#171719;--text:#f4f1f2;--card:#242426;--line:#353438}.dark .nav{background:rgba(35,35,38,.94)}
+@keyframes pop{0%{transform:scale(.96)}55%{transform:scale(1.035)}100%{transform:scale(1)}}.just-added{animation:pop .32s ease}
+@media(max-width:370px){.date .dow{font-size:12px}.date .num{font-size:23px}.tasklib{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
-<div id="app"></div>
+<body><div id="app"></div>
 <script>
 const tasks=[
-["breakfast","Завтрак","🍳"],["lunch","Обед","🥗"],["dinner","Ужин","🍽️"],["study","Учёба","📚"],
-["strength","Силовая","🏋️"],["cardio","Кардио","🏃"],["vacuum","Пылесос","🧹"],["laundry","Стирка","🧺"],
-["dryer","Разобрать сушилку","🧦"],["leo","Играть с Лео","🧸"],["readleo","Читать Лео","📖"],["mom","Позвонить маме","📞"],
-["bath","Ванна с кремом","🛁"],["cook","Готовка","🍳"]
-];
+["breakfast","Завтрак","egg"],["lunch","Обед","salad"],["dinner","Ужин","dinner"],["study","Учёба","book"],["strength","Силовая","dumbbell"],["cardio","Кардио","run"],["vacuum","Пылесос","broom"],["laundry","Стирка","basket"],["dryer","Разобрать сушилку","sock"],["leo","Играть с Лео","teddy"],["readleo","Читать Лео","bookopen"],["mom","Позвонить маме","phone"],["bath","Ванна с кремом","bath"],["cook","Готовка","pan"]];
+const icons={
+egg:`<svg viewBox="0 0 40 40"><path d="M8 25c0-9 6-17 12-17s12 8 12 17a12 12 0 0 1-24 0Z"/><circle cx="20" cy="24" r="5" fill="currentColor" stroke="none"/><path d="M5 31c5 4 25 4 30 0"/></svg>`,
+salad:`<svg viewBox="0 0 40 40"><path d="M7 19h26c-1 10-6 15-13 15S8 29 7 19Z"/><path d="M11 19c0-5 4-8 9-8s9 3 9 8"/><circle cx="14" cy="16" r="2"/><circle cx="25" cy="14" r="2"/><path d="M20 6v4"/></svg>`,
+dinner:`<svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="10"/><path d="M7 10v13M10 10v13M13 10v13M10 23v9M29 10v22M29 10c4 4 4 9 0 13"/></svg>`,
+book:`<svg viewBox="0 0 40 40"><path d="M8 9h10c2 0 3 1 3 3v20c-1-2-3-3-6-3H8Z"/><path d="M32 9H22c-2 0-3 1-3 3v20c1-2 3-3 6-3h7Z"/></svg>`,
+dumbbell:`<svg viewBox="0 0 40 40"><path d="M13 14v12M8 17v6M5 18v4M27 14v12M32 17v6M35 18v4M13 20h14"/></svg>`,
+run:`<svg viewBox="0 0 40 40"><circle cx="24" cy="8" r="3"/><path d="m21 13 5 4 5 1M24 17l-4 7-7 2M20 24l5 7M14 26l-5 6"/></svg>`,
+broom:`<svg viewBox="0 0 40 40"><path d="M29 6 9 27"/><path d="m7 29 7-7 7 7c-4 4-10 5-14 0Z"/><path d="M29 6 34 1"/></svg>`,
+basket:`<svg viewBox="0 0 40 40"><path d="M8 16h24l-3 18H11Z"/><path d="M13 16c0-12 14-12 14 0"/><path d="M12 22h16M14 27h12"/></svg>`,
+sock:`<svg viewBox="0 0 40 40"><path d="M15 6h10v13l7 6c2 2 1 6-2 7H13c-4 0-6-4-4-7l6-6Z"/><path d="M15 18h10"/></svg>`,
+teddy:`<svg viewBox="0 0 40 40"><circle cx="12" cy="12" r="5"/><circle cx="28" cy="12" r="5"/><circle cx="20" cy="23" r="10"/><circle cx="16" cy="22" r="1"/><circle cx="24" cy="22" r="1"/><path d="M18 27c1 1 3 1 4 0"/></svg>`,
+bookopen:`<svg viewBox="0 0 40 40"><path d="M7 9h9c3 0 4 2 4 5v19c-2-2-4-3-7-3H7Z"/><path d="M33 9h-9c-3 0-4 2-4 5v19c2-2 4-3 7-3h6Z"/><path d="M12 14h5M25 14h4"/></svg>`,
+phone:`<svg viewBox="0 0 40 40"><path d="M12 7c2-2 5 1 7 4l-3 4c2 4 5 7 9 9l4-3c3 2 6 5 4 7l-3 3C23 33 7 17 10 10Z"/></svg>`,
+bath:`<svg viewBox="0 0 40 40"><path d="M6 23h28v4H6z"/><path d="M9 23V13c0-5 7-6 9-2l1 3"/><path d="M12 27v5M29 27v5"/><path d="M16 18c2-2 5-2 7 0M24 18c2-2 5-2 7 0"/></svg>`,
+pan:`<svg viewBox="0 0 40 40"><ellipse cx="17" cy="23" rx="10" ry="7"/><path d="m25 20 9-7M10 23c0-7 4-12 9-12"/></svg>`};
 const photos={
-mist:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
-forest:"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=85",
-sea:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
-night:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=85"
-};
-let state=JSON.parse(localStorage.getItem("ritm7")||"null")||{date:new Date().toISOString().slice(0,10),plans:{},accent:"green",theme:"day",bg:"mist"};
-const save=()=>localStorage.setItem("ritm7",JSON.stringify(state));
-const pad=n=>String(n).padStart(2,"0");
-function key(d){return d.toISOString().slice(0,10)}
+mist:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=88",
+forest:"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1400&q=88",
+sea:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=88",
+night:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=88"};
+const todayKey=key(new Date());
+let old=JSON.parse(localStorage.getItem("ritm8")||localStorage.getItem("ritm7")||localStorage.getItem("ritm6")||"null");
+let state=old?{date:old.date||todayKey,plans:old.plans||{},accent:old.accent||"green",theme:old.theme||"day",bg:old.bg||"mist"}:{date:todayKey,plans:{},accent:"green",theme:"day",bg:"mist"};
+function key(d){let z=new Date(d.getFullYear(),d.getMonth(),d.getDate());return `${z.getFullYear()}-${String(z.getMonth()+1).padStart(2,"0")}-${String(z.getDate()).padStart(2,"0")}`}
 function dateFrom(s){let [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
-function fmt(s){let d=dateFrom(s);return d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"})}
-function datesAround(){
- let d=dateFrom(state.date), out=[];
- for(let i=-3;i<=3;i++){let x=new Date(d);x.setDate(d.getDate()+i);out.push(x)}
- return out
-}
+function pad(n){return String(n).padStart(2,"0")}
+function fmt(s){return dateFrom(s).toLocaleDateString("ru-RU",{day:"numeric",month:"long"})}
+function save(){localStorage.setItem("ritm9",JSON.stringify(state))}
+function clickSound(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const c=new A(),o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.setValueAtTime(720,c.currentTime);g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.035,c.currentTime+.008);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.07);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.08)}catch(e){}}
+function plural(n,a,b,c){let x=n%10,y=n%100;return x===1&&y!==11?a:x>=2&&x<=4&&(y<10||y>=20)?b:c}
+function taskById(id){return tasks.find(t=>t[0]===id)}
 function render(){
- document.documentElement.style.setProperty("--accent",state.accent==="pink"?"var(--pink)":"var(--green)");
- document.body.className=state.theme==="night"?"dark":"";
- let planned=state.plans[state.date]||[], done=planned.filter(x=>x.done).length;
- let pct=planned.length?Math.round(done/planned.length*100):0;
- let ds=datesAround();
- document.getElementById("app").innerHTML=`
- <div class="app">
-  <div class="top"><h1>${dateFrom(state.date).toLocaleDateString("ru-RU",{month:"long"})}</h1><button class="iconbtn" onclick="settings()">⚙︎</button></div>
-  <div class="dates" id="dates">${ds.map(d=>`<div class="date ${key(d)===state.date?"active":""}" data-date="${key(d)}"><span class="dow">${d.toLocaleDateString("ru-RU",{weekday:"short"}).replace(".","")}</span><span class="num">${d.getDate()}</span></div>`).join("")}</div>
-  <div class="progress" style="background-image:url('${photos[state.bg]}')"><div class="pct">${pct}%</div><div class="label">${done} из ${planned.length} задач выполнено</div></div>
-  <h2>Добавить в ${fmt(state.date)}</h2>
-  <div class="tasklib">${tasks.map(t=>`<div class="tile" onclick="addTask('${t[0]}')"><span class="ico">${t[2]}</span><span class="name">${t[1]}</span></div>`).join("")}</div>
-  <h2>В плане на день</h2>
-  ${planned.length?planned.map((p,i)=>`<div class="daytask ${p.done?"done":""}" onclick="toggle(${i})"><div class="left"><span class="ico">${p.ico}</span><span class="name">${p.name}</span></div><span class="check">${p.done?"✓":""}</span></div>`).join(""):`<div style="color:var(--muted);padding:8px 2px">Пока ничего не добавлено</div>`}
- </div>
- <div class="nav"><button class="sel">День</button><button onclick="month()">Месяц</button><button onclick="settings()">Настройки</button></div>
- <div class="modal" id="modal"></div>`;
- attachSwipe();
+document.documentElement.style.setProperty("--accent",state.accent==="pink"?"var(--pink)":"var(--green)");
+document.documentElement.style.setProperty("--selected-bg",state.accent==="pink"?"rgba(228,155,181,.12)":"rgba(47,118,104,.12)");
+document.documentElement.style.setProperty("--selected-shadow",state.accent==="pink"?"rgba(228,155,181,.18)":"rgba(47,118,104,.18)");
+document.body.className=state.theme==="night"?"dark":"";
+const planned=state.plans[state.date]||[],done=planned.filter(x=>x.done).length,pct=planned.length?Math.round(done/planned.length*100):0,d=dateFrom(state.date);
+const dates=[];for(let i=-3;i<=3;i++){let x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+i);dates.push(x)}
+const chosen=new Set(planned.map(x=>x.id));
+document.getElementById("app").innerHTML=`<div class="app">
+<div class="top"><h1>${d.toLocaleDateString("ru-RU",{month:"long"})}</h1><button class="iconbtn" onclick="settings()">⚙︎</button></div>
+<div class="swipe" id="swipe"><div class="track" id="track">${dates.map(x=>`<div class="date ${key(x)===state.date?"active":""} ${key(x)===todayKey?"today":""}" data-date="${key(x)}"><span class="dow">${x.toLocaleDateString("ru-RU",{weekday:"short"}).replace(".","")}</span><span class="num">${x.getDate()}</span></div>`).join("")}</div></div>
+<div class="progress" id="progress" style="background-image:url('${photos[state.bg]}')"><div class="today-title">Сегодня ${planned.length} ${plural(planned.length,"задача","задачи","задач")}</div><div class="pct">${pct}%</div><div class="sub">${done} из ${planned.length} выполнено</div></div>
+<h2>Мои дела на ${fmt(state.date)}</h2><div class="added">${planned.length?planned.map((p,i)=>{let t=taskById(p.id);return `<div class="daytask ${p.done?"done":""}" onclick="toggle(${i})"><div class="left"><span class="ico">${icons[t?.[2]||"book"]}</span><span class="name">${p.name}</span></div><span class="check">${p.done?"✓":""}</span></div>`}).join(""):`<div class="empty">Добавь дела ниже — они появятся здесь.</div>`}</div>
+<h2>Добавить дело</h2><div class="tasklib">${tasks.map(t=>`<button class="tile ${chosen.has(t[0])?"selected":""}" onclick="addTask('${t[0]}')"><span class="ico">${icons[t[2]]}</span><span class="name">${t[1]}</span>${chosen.has(t[0])?'<span class="plus">✓</span>':''}</button>`).join("")}</div>
+</div><div class="nav"><button class="sel">День</button><button onclick="month()">Месяц</button><button onclick="settings()">Настройки</button></div><div class="modal" id="modal"></div>`;
+attachSwipe();
 }
-function addTask(id){let t=tasks.find(x=>x[0]===id);let a=state.plans[state.date]||[];if(!a.some(x=>x.id===id)){a.push({id,name:t[1],ico:t[2],done:false});state.plans[state.date]=a;save();render()}}
-function toggle(i){state.plans[state.date][i].done=!state.plans[state.date][i].done;save();render()}
-function shift(n){let d=dateFrom(state.date);d.setDate(d.getDate()+n);state.date=key(d);save();render()}
+function addTask(id){let arr=state.plans[state.date]||[];if(arr.some(x=>x.id===id)){document.querySelector(`[onclick="addTask('${id}')"]`)?.classList.add("just-added");return}let t=taskById(id);arr.push({id,name:t[1],done:false});state.plans[state.date]=arr;save();clickSound();render();setTimeout(()=>{document.querySelector(".added")?.scrollIntoView({behavior:"smooth",block:"start"});},70)}
+function toggle(i){state.plans[state.date][i].done=!state.plans[state.date][i].done;save();clickSound();render()}
+function go(s){state.date=s;save();clickSound();render()}
+function shift(n){let d=dateFrom(state.date);d.setDate(d.getDate()+n);go(key(d))}
 function attachSwipe(){
- const el=document.getElementById("dates");let x=0,y=0;
- el.addEventListener("touchstart",e=>{x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
- el.addEventListener("touchend",e=>{let dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){shift(dx<0?1:-1)}},{passive:true});
- document.querySelectorAll(".date").forEach(e=>e.onclick=()=>{state.date=e.dataset.date;save();render()});
+const el=document.getElementById("swipe"),track=document.getElementById("track");let sx=0,sy=0,dx=0,drag=false;
+function start(x,y){sx=x;sy=y;dx=0;drag=true;el.classList.add("dragging");track.style.transition="none"}
+function move(x,y,e){if(!drag)return;dx=x-sx;if(Math.abs(dx)>Math.abs(y-sy)+4){e.preventDefault();track.style.transform=`translate3d(${dx}px,0,0)`}}
+function end(){if(!drag)return;drag=false;el.classList.remove("dragging");let threshold=34;track.style.transition="transform .22s cubic-bezier(.22,.8,.3,1)";if(Math.abs(dx)>threshold){let dir=dx<0?1:-1;track.style.transform=`translate3d(${dir<0?window.innerWidth:-window.innerWidth}px,0,0)`;setTimeout(()=>shift(dir),185)}else{track.style.transform="translate3d(0,0,0)";setTimeout(()=>track.style.transition="",230)}}
+el.addEventListener("touchstart",e=>start(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
+el.addEventListener("touchmove",e=>move(e.touches[0].clientX,e.touches[0].clientY,e),{passive:false});
+el.addEventListener("touchend",end,{passive:true});el.addEventListener("touchcancel",()=>{drag=false;track.style.transform="translate3d(0,0,0)"},{passive:true});
+el.querySelectorAll(".date").forEach(x=>x.addEventListener("click",()=>{if(Math.abs(dx)<8)go(x.dataset.date)}));
 }
 function month(){
- let d=dateFrom(state.date),y=d.getFullYear(),m=d.getMonth(),days=new Date(y,m+1,0).getDate();
- let rows="";for(let n=1;n<=days;n++){let s=`${y}-${pad(m+1)}-${pad(n)}`,a=state.plans[s]||[];rows+=`<button class="opt" onclick="pick('${s}')"><b>${n}</b> · ${a.length} задач</button>`}
- document.getElementById("modal").innerHTML=`<div class="sheet"><button class="close" onclick="closeM()">×</button><h3>${d.toLocaleDateString("ru-RU",{month:"long",year:"numeric"})}</h3><div class="opts">${rows}</div></div>`;document.getElementById("modal").style.display="flex";
-}
-function pick(s){state.date=s;save();closeM();render()}
+let d=dateFrom(state.date),y=d.getFullYear(),m=d.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),lead=(first.getDay()+6)%7,cells="";
+for(let i=0;i<lead;i++)cells+=`<div class="mday empty"></div>`;
+for(let n=1;n<=days;n++){let s=`${y}-${pad(m+1)}-${pad(n)}`,a=state.plans[s]||[];cells+=`<button class="mday ${s===state.date?"current":""} ${s===todayKey?"today":""}" onclick="pick('${s}')">${n}<span class="count">${a.length?a.length+" дел.":""}</span></button>`}
+document.getElementById("modal").innerHTML=`<div class="sheet"><button class="close" onclick="closeM()">×</button><h3>${d.toLocaleDateString("ru-RU",{month:"long",year:"numeric"})}</h3><div class="month-head"><div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div></div><div class="month-grid">${cells}</div></div>`;document.getElementById("modal").style.display="flex"}
+function pick(s){state.date=s;save();closeM();clickSound();render()}function closeM(){document.getElementById("modal").style.display="none"}
 function settings(){
- document.getElementById("modal").innerHTML=`<div class="sheet"><button class="close" onclick="closeM()">×</button><h3>Настройки</h3>
- <p>Акцент</p><div class="opts"><button class="opt ${state.accent==="green"?"selected":""}" onclick="setAccent('green')">Изумрудный</button><button class="opt ${state.accent==="pink"?"selected":""}" onclick="setAccent('pink')">Розовый</button></div>
- <p>Тема</p><div class="opts"><button class="opt ${state.theme==="day"?"selected":""}" onclick="setTheme('day')">День</button><button class="opt ${state.theme==="night"?"selected":""}" onclick="setTheme('night')">Ночь</button></div>
- <p>Фон карточки</p><div class="opts">${Object.entries(photos).map(([k,v])=>`<button class="opt ${state.bg===k?"selected":""}" onclick="setBg('${k}')"><div class="bgthumb" style="background-image:url('${v}')"></div>${{mist:"Туманное утро",forest:"Тихий лес",sea:"Спокойное море",night:"Ночное небо"}[k]}</button>`).join("")}</div>
- </div>`;document.getElementById("modal").style.display="flex";
-}
-function closeM(){document.getElementById("modal").style.display="none"}
-function setAccent(x){state.accent=x;save();settings();render()}
-function setTheme(x){state.theme=x;save();settings();render()}
-function setBg(x){state.bg=x;save();settings();render()}
+document.getElementById("modal").innerHTML=`<div class="sheet"><button class="close" onclick="closeM()">×</button><h3>Настройки</h3><p>Акцент</p><div class="opts"><button class="opt ${state.accent==="green"?"selected":""}" onclick="setAccent('green')">Изумрудный</button><button class="opt ${state.accent==="pink"?"selected":""}" onclick="setAccent('pink')">Розовый</button></div><p>Тема</p><div class="opts"><button class="opt ${state.theme==="day"?"selected":""}" onclick="setTheme('day')">День</button><button class="opt ${state.theme==="night"?"selected":""}" onclick="setTheme('night')">Ночь</button></div><p>Фон карточки</p><div class="opts">${Object.entries(photos).map(([k,v])=>`<button class="opt ${state.bg===k?"selected":""}" onclick="setBg('${k}')"><div class="bgthumb" style="background-image:url('${v}')"></div>${{mist:"Туманное утро",forest:"Тихий лес",sea:"Спокойное море",night:"Ночное небо"}[k]}</button>`).join("")}</div></div>`;document.getElementById("modal").style.display="flex"}
+function setAccent(x){state.accent=x;save();settings();render()}function setTheme(x){state.theme=x;save();settings();render()}function setBg(x){state.bg=x;save();settings();render()}
 render();
-if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js?v=7");
-</script>
-</body></html>
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=9");
+</script></body></html>

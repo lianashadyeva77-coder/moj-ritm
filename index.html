@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f4f1eb">
+<title>Мой ритм</title><link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+ --bg:#f4f1eb;--paper:#fffdf9;--ink:#252522;--muted:#8b887f;--line:#e8e3da;
+ --green:#385b4b;--green2:#e4eee8;--rose:#ead9d4;--gold:#d7b56c;--shadow:0 10px 35px rgba(54,45,30,.08)
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+button{font:inherit}
+.app{max-width:760px;margin:auto;padding-bottom:110px}
+header{padding:calc(18px + env(safe-area-inset-top)) 18px 14px;position:sticky;top:0;z-index:20;background:rgba(244,241,235,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(210,205,195,.5)}
+.headrow{display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:27px;font-weight:760;letter-spacing:-.8px}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.iconbtn{width:42px;height:42px;border:1px solid var(--line);background:var(--paper);border-radius:14px}
+.nav{display:flex;gap:6px;align-items:center}.nav button{border:0;background:transparent;font-size:22px;width:35px;height:35px}.month{font-size:15px;font-weight:700;min-width:120px;text-align:center}
+main{padding:15px}
+.hero{background:var(--green);color:white;border-radius:24px;padding:18px;box-shadow:var(--shadow);margin-bottom:13px}
+.heroTop{display:flex;justify-content:space-between;align-items:flex-start}.heroTitle{font-size:20px;font-weight:720}.heroSmall{font-size:12px;opacity:.72;margin-top:4px}
+.progress{height:7px;background:rgba(255,255,255,.2);border-radius:99px;margin:16px 0 8px;overflow:hidden}.bar{height:100%;background:#fff;border-radius:99px;width:0}
+.progressText{font-size:11px;opacity:.78}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:12px 9px;box-shadow:var(--shadow)}
+.q b{font-size:19px}.q span{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px}
+.day{padding:14px 15px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.day strong{font-size:16px}.today{color:var(--green)}.day small{color:var(--muted)}
+.task{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #eeeae3;min-height:58px}
+.task:last-child{border-bottom:0}.taskInfo{flex:1;min-width:0}.taskName{font-size:14px;font-weight:610}.taskMeta{font-size:10px;color:var(--muted);margin-top:3px}
+.dot{flex:0 0 31px;width:31px;height:31px;border-radius:50%;border:1.5px solid #d6d1c8;background:white;display:flex;align-items:center;justify-content:center;color:transparent;font-weight:800;font-size:15px}
+.dot.plan{background:var(--green2);border-color:#cbdcd2}.dot.done{background:var(--green);border-color:var(--green);color:white}
+.dot.scheduled{background:#f7f2e8;border-color:#e2d5bc}
+.sectionTitle{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:7px 3px}
+.add{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:30;background:var(--green);color:white;border:0;border-radius:20px;padding:15px 22px;font-weight:700;box-shadow:0 10px 30px rgba(56,91,75,.28);white-space:nowrap}
+.sheetBg{position:fixed;inset:0;background:rgba(30,28,24,.35);z-index:40;display:none;align-items:flex-end}
+.sheetBg.open{display:flex}.sheet{width:100%;max-width:760px;margin:auto;background:var(--paper);border-radius:26px 26px 0 0;padding:19px 17px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.sheetHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.sheet h2{margin:0;font-size:19px}
+.close{border:0;background:#eeeae3;width:36px;height:36px;border-radius:12px}
+label{font-size:11px;color:var(--muted);display:block;margin:12px 0 6px}
+input,select{width:100%;height:48px;border:1px solid var(--line);background:white;border-radius:13px;padding:0 13px;font-size:15px;outline:none}
+.save{width:100%;height:50px;background:var(--green);color:#fff;border:0;border-radius:14px;margin-top:16px;font-weight:700}
+.freqGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.freq{border:1px solid var(--line);background:white;border-radius:12px;padding:11px;font-size:12px;text-align:center}.freq.active{background:var(--green2);border-color:#bfd2c6;color:var(--green);font-weight:700}
+.monthView{display:none}.monthGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.mday{background:var(--paper);border:1px solid var(--line);border-radius:10px;min-height:58px;padding:7px 5px;font-size:11px}.mday b{font-size:11px}.mday .mini{font-size:8px;color:var(--green);margin-top:4px;line-height:1.35}.mday.weekend{background:#faf7f3}.mday.today{box-shadow:inset 0 0 0 2px var(--gold)}
+.switch{display:flex;gap:7px;background:#e9e5dd;padding:4px;border-radius:13px;margin-bottom:12px}.switch button{flex:1;border:0;background:transparent;border-radius:10px;padding:9px;font-size:12px;color:var(--muted)}.switch button.active{background:var(--paper);color:var(--ink);font-weight:700}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="headrow">
+  <div><div class="brand">Мой ритм</div><div class="sub">месяц без хаоса</div></div>
+  <button class="iconbtn" id="settings">⚙︎</button>
+ </div>
+ <div class="headrow" style="margin-top:12px">
+  <div class="nav"><button id="prev">‹</button><div class="month" id="month"></div><button id="next">›</button></div>
+  <button class="iconbtn" id="today">⌂</button>
+ </div>
+</header>
+
+<main>
+ <div class="switch"><button id="dayMode" class="active">Сегодня</button><button id="monthMode">Весь месяц</button></div>
+ <section class="hero">
+   <div class="heroTop"><div><div class="heroTitle" id="heroDate"></div><div class="heroSmall" id="heroSub"></div></div><div id="heroPct" style="font-size:24px;font-weight:750">0%</div></div>
+   <div class="progress"><div class="bar" id="bar"></div></div><div class="progressText" id="progressText"></div>
+ </section>
+ <div class="quick">
+  <div class="q"><b id="done">0</b><span>сделано</span></div><div class="q"><b id="left">0</b><span>осталось</span></div><div class="q"><b id="sport">0/3</b><span>спорт</span></div>
+ </div>
+ <div id="content"></div>
+</main>
+</div>
+<button class="add" id="add">＋ Добавить дело</button>
+
+<div class="sheetBg" id="sheet">
+ <div class="sheet">
+  <div class="sheetHead"><h2 id="sheetTitle">Новое дело</h2><button class="close" id="close">×</button></div>
+  <label>Название</label><input id="name" placeholder="Например, массаж">
+  <label>Категория</label>
+  <select id="cat"><option>Каждый день</option><option>Дом</option><option>Учёба</option><option>Спорт</option><option>Лео</option><option>Я</option><option>Раз в неделю</option><option>Раз в месяц</option></select>
+  <label>Повторение</label>
+  <div class="freqGrid" id="freqGrid">
+   <button class="freq" data-f="daily">Каждый день</button><button class="freq" data-f="weekdays">Пн–Пт</button>
+   <button class="freq" data-f="weekly1">1 раз / неделю</button><button class="freq" data-f="weekly2">2 раза / неделю</button>
+   <button class="freq" data-f="weekly3">3 раза / неделю</button><button class="freq" data-f="weekly4">4 раза / неделю</button>
+   <button class="freq" data-f="biweekly">Раз в 2 недели</button><button class="freq" data-f="monthly">1 раз / месяц</button>
+   <button class="freq" data-f="manual">По необходимости</button>
+  </div>
+  <button class="save" id="save">Сохранить дело</button>
+ </div>
+</div>
+
+<script>
+const seed=[
+['breakfast','Завтрак','Каждый день','daily'],['study','Учёба · 2 часа','Учёба','weekdays'],
+['strength','Силовая тренировка','Спорт','weekly2'],['cardio','Кардио','Спорт','weekly1'],
+['home','Уборка дома','Дом','weekly1'],['fridge','Холодильник','Дом','biweekly'],
+['vacuum','Пылесос','Дом','weekly2'],['dishes','Посуда · утро + вечер','Дом','daily'],
+['dryer','Разобрать сушилку','Дом','daily'],['laundry','Стирка','Дом','weekly2'],
+['reading','Чтение · 1 час','Я','weekly3'],['cooking','Готовка','Дом','weekly2'],
+['lunch','Обед','Каждый день','daily'],['dinner','Ужин','Каждый день','daily'],
+['leo','Играть с Лео · 30 мин','Лео','daily'],['bedread','Читать перед сном · 10 мин','Лео','weekdays'],
+['toilet','Туалет · уборка','Дом','biweekly'],['kitchen','Кухня · уборка','Дом','biweekly'],
+['mom','Позвонить маме','Раз в неделю','weekly1'],['irade','Съездить к Ираде','Раз в месяц','monthly'],
+['massage','Массаж','Раз в месяц','monthly'],['bath','Ванна с кремом','Я','weekly1'],
+['series','Сериал','Я','manual']
+];
+let tasks=JSON.parse(localStorage.getItem('rhythm_tasks')||'null');
+if(!tasks) tasks=seed.map(x=>({id:x[0],name:x[1],cat:x[2],freq:x[3]}));
+let checks=JSON.parse(localStorage.getItem('rhythm_checks')||'{}');
+let view=new Date();let selected=new Date();view.setDate(1);let mode='day',freq='manual';
+const months=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const dows=['вс','пн','вт','ср','чт','пт','сб'];
+function save(){localStorage.setItem('rhythm_tasks',JSON.stringify(tasks));localStorage.setItem('rhythm_checks',JSON.stringify(checks))}
+function dk(d,t){return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${t}`}
+function dayKey(d){return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
+function planned(t,d){
+ let w=d.getDay(),n=d.getDate();
+ if(t.freq==='daily')return true;if(t.freq==='weekdays')return w>=1&&w<=5;
+ if(t.freq==='weekly1')return w===1;if(t.freq==='weekly2')return [2,5].includes(w);
+ if(t.freq==='weekly3')return [1,3,5].includes(w);if(t.freq==='weekly4')return [1,2,4,6].includes(w);
+ if(t.freq==='biweekly')return n===1||n===15;if(t.freq==='monthly')return n===1||n===10;
+ return false
+}
+function isToday(d){let n=new Date();return dayKey(n)===dayKey(d)}
+function fmt(d){return `${d.getDate()} ${months[d.getMonth()].toLowerCase()} · ${dows[d.getDay()]}`}
+function taskHtml(t,d){
+ let k=dk(d,t.id),done=!!checks[k],p=planned(t,d)||done;
+ return `<div class="task"><div class="taskInfo"><div class="taskName">${t.name}</div><div class="taskMeta">${t.cat}${p?'':' · свободно'}</div></div><button class="dot ${p?'plan':''} ${done?'done':''}" data-k="${k}" aria-label="${done?'снять':'отметить'}">${done?'✓':''}</button></div>`
+}
+function render(){
+ document.getElementById('month').textContent=`${months[view.getMonth()]} ${view.getFullYear()}`;
+ let d=new Date(selected),all=tasks.filter(t=>planned(t,d)||checks[dk(d,t.id)]);
+ let done=all.filter(t=>checks[dk(d,t.id)]).length;
+ document.getElementById('heroDate').textContent=isToday(d)?'Сегодня':fmt(d);
+ document.getElementById('heroSub').textContent=`${all.length} дел на этот день`;
+ document.getElementById('heroPct').textContent=all.length?Math.round(done/all.length*100)+'%':'0%';
+ document.getElementById('bar').style.width=(all.length?done/all.length*100:0)+'%';
+ document.getElementById('progressText').textContent=all.length?`${done} из ${all.length} выполнено`:'Нет обязательных дел';
+ document.getElementById('done').textContent=done;document.getElementById('left').textContent=all.length-done;
+ let sport=tasks.filter(t=>['strength','cardio'].includes(t.id)).filter(t=>checks[dk(d,t.id)]).length;
+ document.getElementById('sport').textContent=`${sport}/3`;
+ if(mode==='day')renderDay(d,all);else renderMonth();
+ document.querySelectorAll('.dot').forEach(b=>b.onclick=()=>{let k=b.dataset.k;checks[k]=!checks[k];if(!checks[k])delete checks[k];save();render()});
+}
+function renderDay(d,all){
+ let groups={'Каждый день':[],'Учёба':[],'Спорт':[],'Дом':[],'Лео':[],'Я':[],'Раз в неделю':[],'Раз в месяц':[]};
+ all.forEach(t=>(groups[t.cat]??=[]).push(t));
+ let out='';
+ for(let g in groups)if(groups[g].length)out+=`<div class="sectionTitle">${g}</div><section class="card"><div class="day"><strong>${isToday(d)?'План на сегодня':'План'}</strong><small>${fmt(d)}</small></div>${groups[g].map(t=>taskHtml(t,d)).join('')}</section>`;
+ document.getElementById('content').innerHTML=out||'<div class="empty">Сегодня можно выдохнуть 🌿</div>';
+}
+function renderMonth(){
+ let y=view.getFullYear(),m=view.getMonth(),N=new Date(y,m+1,0).getDate(),out='<section class="card"><div class="monthGrid">';
+ for(let n=1;n<=N;n++){let d=new Date(y,m,n),done=tasks.filter(t=>checks[dk(d,t.id)]).length,pl=tasks.filter(t=>planned(t,d)).length;
+ out+=`<button class="mday ${d.getDay()===0||d.getDay()===6?'weekend':''} ${isToday(d)?'today':''}" data-day="${n}"><b>${n}</b><div class="mini">${done}✓ · ${pl} план</div></button>`}
+ out+='</div></section>';document.getElementById('content').innerHTML=out;
+ document.querySelectorAll('.mday').forEach(b=>b.onclick=()=>{selected=new Date(y,m,+b.dataset.day);mode='day';document.getElementById('dayMode').classList.add('active');document.getElementById('monthMode').classList.remove('active');render()});
+}
+document.getElementById('prev').onclick=()=>{view.setMonth(view.getMonth()-1);selected=new Date(view.getFullYear(),view.getMonth(),1);render()};
+document.getElementById('next').onclick=()=>{view.setMonth(view.getMonth()+1);selected=new Date(view.getFullYear(),view.getMonth(),1);render()};
+document.getElementById('today').onclick=()=>{let n=new Date();view=new Date(n.getFullYear(),n.getMonth(),1);selected=n;render()};
+document.getElementById('dayMode').onclick=()=>{mode='day';this.classList.add('active');document.getElementById('monthMode').classList.remove('active');render()};
+document.getElementById('monthMode').onclick=()=>{mode='month';this.classList.add('active');document.getElementById('dayMode').classList.remove('active');render()};
+document.getElementById('add').onclick=()=>openSheet();
+document.getElementById('settings').onclick=()=>openSheet();
+document.getElementById('close').onclick=()=>document.getElementById('sheet').classList.remove('open');
+document.getElementById('freqGrid').addEventListener('click',e=>{if(e.target.classList.contains('freq')){freq=e.target.dataset.f;document.querySelectorAll('.freq').forEach(x=>x.classList.remove('active'));e.target.classList.add('active')}})
+function openSheet(){document.getElementById('sheet').classList.add('open');freq='manual';document.querySelectorAll('.freq').forEach(x=>x.classList.toggle('active',x.dataset.f==='manual'))}
+document.getElementById('save').onclick=()=>{let n=document.getElementById('name').value.trim();if(!n)return;tasks.push({id:'t'+Date.now(),name:n,cat:document.getElementById('cat').value,freq});save();document.getElementById('name').value='';document.getElementById('sheet').classList.remove('open');render()};
+render();
+</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body>
+</html>

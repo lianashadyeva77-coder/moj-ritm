@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f7f5f4">
-<link rel="manifest" href="manifest-v11.webmanifest">
-<title>Мой ритм · v11</title>
+<link rel="manifest" href="manifest.webmanifest">
+<title>Мой ритм</title>
 <style>
 :root{--accent:#2f7668;--pink:#e49bb5;--green:#2f7668;--bg:#f7f5f4;--text:#292729;--muted:#918d90;--card:#fff;--line:#e9e3e5}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -108,6 +108,6 @@ function addFromDetail(id){let a=state.plans[state.date]||[];if(a.some(x=>x.id==
 function settings(){
 document.getElementById("modal").innerHTML=`<div class="sheet"><button class="close" onclick="closeM()">×</button><h3>Настройки</h3><p>Акцент</p><div class="opts"><button class="opt ${state.accent==="green"?"selected":""}" onclick="setAccent('green')">Изумрудный</button><button class="opt ${state.accent==="pink"?"selected":""}" onclick="setAccent('pink')">Розовый</button></div><p>Тема</p><div class="opts"><button class="opt ${state.theme==="day"?"selected":""}" onclick="setTheme('day')">День</button><button class="opt ${state.theme==="night"?"selected":""}" onclick="setTheme('night')">Ночь</button></div><p>Фон карточки</p><div class="opts">${Object.entries(photos).map(([k,v])=>`<button class="opt ${state.bg===k?"selected":""}" onclick="setBg('${k}')"><div class="bgthumb" style="background-image:url('${v}')"></div>${{mist:"Туманное утро",forest:"Тихий лес",sea:"Спокойное море",night:"Ночное небо"}[k]}</button>`).join("")}</div></div>`;document.getElementById("modal").style.display="flex"}
 function setAccent(x){state.accent=x;save();settings();render()}function setTheme(x){state.theme=x;save();settings();render()}function setBg(x){state.bg=x;save();settings();render()}
-render();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=11");
+render();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=12");
 </script>
 </body></html>
